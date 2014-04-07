@@ -4,6 +4,7 @@ import java.awt.AWTEventMulticaster;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -61,7 +62,6 @@ public class TP3 extends WindowAdapter implements ActionListener {
     private JButton charger;
     private JButton sauvgarder;
     private JButton configuration;
-    private JTextArea textArea;
 
     /**
      * Constructeur sans argument qui initialise tous les composants graphiques.
@@ -99,8 +99,14 @@ public class TP3 extends WindowAdapter implements ActionListener {
 
         text = new JPanel();
         text.setBounds(10, menu.getHeight(), LARGEUR_FENETRE - 25, HAUTEUR_FENETRE - (menu.getHeight() + 65));
-        textArea = new JTextArea(text.getWidth(), text.getHeight());
-        text.add(textArea);
+        JTextArea textArea = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(text.getSize()));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        
+        textArea.setLineWrap(true);
+        
+        text.add(scrollPane);
         
         fenetre.add(menu);
         fenetre.add(text);
@@ -126,16 +132,42 @@ public class TP3 extends WindowAdapter implements ActionListener {
         JLabel policeCaract = new JLabel("POLICE DE CARACTÈRES                                        ");
         
         JPanel policeContent = new JPanel();
-        policeContent.setLayout(new GridLayout(3, 2));
+        policeContent.setSize(top.getWidth(), top.getHeight() - 30);
+        
+        policeContent.setLayout(new GridLayout(3, 2, -45, 10));
         JLabel nom = new JLabel("Nom");
         JLabel taille = new JLabel("Taille");
         JLabel couleur = new JLabel("Couleur");
-        JComboBox courier = new JComboBox();
+        JComboBox courier = new JComboBox(listeCaract);
+        courier.setSelectedIndex(1);
+        JTextField textTaille = new JTextField("12");
+        JComboBox couleurBox = new JComboBox(listeCouleur);
         
+        policeContent.add(nom);
+        policeContent.add(courier);
+        policeContent.add(taille);
+        policeContent.add(textTaille);
+        policeContent.add(couleur);
+        policeContent.add(couleurBox);
         
+        JRadioButton normal = new JRadioButton("Normal     ");
+        JRadioButton gras = new JRadioButton("Gras     ");
+        JRadioButton italique = new JRadioButton("Italique     ");
+        normal.setSelected(true);
+        
+        ButtonGroup groupeRadio = new ButtonGroup();
+        groupeRadio.add(normal);
+        groupeRadio.add(gras);
+        groupeRadio.add(italique);
+        
+        JPanel panelRadio = new JPanel(new FlowLayout());
+        panelRadio.add(normal);
+        panelRadio.add(gras);
+        panelRadio.add(italique);
         
         top.add(policeCaract);
-        
+        top.add(policeContent);
+        top.add(panelRadio);
         
         
         
