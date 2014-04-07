@@ -1,7 +1,10 @@
 package tp3;
 
 import java.awt.AWTEventMulticaster;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Toolkit;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class TP3 extends WindowAdapter implements ActionListener {
 
@@ -42,6 +46,9 @@ public class TP3 extends WindowAdapter implements ActionListener {
     public final static String TITRE_FENETRE = "MINI ÉDITEUR";
     public final static String TITRE_FENETRE_CONFIG = "CONFIGURATION";
 
+    public String[] listeCaract = {"Arial", "Courier", "Lucida Grande", "Time"};
+    public String[] listeCouleur = {"Noir", "Blanc", "Jaune", "Rouge", "Rose",
+        "Bleu", "Bleu pâle", "Vert", "Vert pâle", "Orange", "Gris"};
     /**
      * **********************
      * ATTRIBUTS D'INSTANCE **********************
@@ -62,55 +69,85 @@ public class TP3 extends WindowAdapter implements ActionListener {
     public TP3() {
         init();
     }
+
     /**
      * @Initialisation de l'interface graphique.
      */
     private void init() {
+
+        /*
+        * FENETRE
+        */
         fenetre = new JFrame(TITRE_FENETRE);
         fenetre.setBounds(LARG_ECRAN / 2 - LARGEUR_FENETRE / 2, HAUT_ECRAN / 2 - HAUTEUR_FENETRE / 2, LARGEUR_FENETRE, HAUTEUR_FENETRE);
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenetre.setLayout(null);
         fenetre.setResizable(false);
 
-        fenetreConfig = new JFrame(TITRE_FENETRE_CONFIG);
-        fenetreConfig.setLayout(null);
-        fenetreConfig.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        fenetreConfig.setBounds(fenetre.getX() + fenetre.getWidth(), fenetre.getY(), 300, fenetre.getHeight());
-        fenetreConfig.setResizable(false);
-
         nouveau = new JButton("Nouveau");
         charger = new JButton("Charger");
         sauvgarder = new JButton("Sauvgarder");
         configuration = new JButton("Configuration");
-        
-        textArea = new JTextArea(LARGEUR_FENETRE, HAUTEUR_FENETRE);
-        
-        
-        
+
         menu = new JPanel();
-        menu.setBounds(10, 10, LARGEUR_FENETRE - 25, 50);
+        menu.setBounds(10, 5, LARGEUR_FENETRE - 25, 40);
         menu.add(nouveau);
         menu.add(charger);
         menu.add(sauvgarder);
         menu.add(configuration);
         menu.doLayout();
-        
+
         text = new JPanel();
-        text.setBounds(10, menu.getHeight() + 10, LARGEUR_FENETRE - 25, HAUTEUR_FENETRE - (menu.getHeight() + 10));
+        text.setBounds(10, menu.getHeight(), LARGEUR_FENETRE - 25, HAUTEUR_FENETRE - (menu.getHeight() + 65));
+        textArea = new JTextArea(text.getWidth(), text.getHeight());
         text.add(textArea);
-        
         
         fenetre.add(menu);
         fenetre.add(text);
         
-        
-        fenetreConfig.setVisible(true);
         fenetre.setVisible(true);
+        
+        
+        
+        /*
+        * CONFIGURATION
+        */
+        JPanel top = new JPanel();
+        JPanel bot = new JPanel();
+        
+        fenetreConfig = new JFrame(TITRE_FENETRE_CONFIG);
+        fenetreConfig.setLayout(null);
+        fenetreConfig.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        fenetreConfig.setBounds(fenetre.getX() + fenetre.getWidth(), fenetre.getY(), 300, fenetre.getHeight());
+        fenetreConfig.setResizable(false);
+        
+        top.setBounds(10, 10, 275, 190);
+        top.setBorder(BorderFactory.createLineBorder(NOIR));
+        JLabel policeCaract = new JLabel("POLICE DE CARACTÈRES                                        ");
+        
+        JPanel policeContent = new JPanel();
+        policeContent.setLayout(new GridLayout(3, 2));
+        JLabel nom = new JLabel("Nom");
+        JLabel taille = new JLabel("Taille");
+        JLabel couleur = new JLabel("Couleur");
+        JComboBox courier = new JComboBox();
+        
+        
+        
+        top.add(policeCaract);
+        
+        
+        
+        
+        bot.setBounds(10, top.getHeight() + 20, 275, 290);
+        bot.setBorder(BorderFactory.createLineBorder(NOIR));
+        
+        
+        fenetreConfig.add(top);
+        fenetreConfig.add(bot);
+        fenetreConfig.setVisible(true);
     }
 
-    
-    
-    
     /**
      * **********************************************
      * IMPLEMENTATION DE L'INTERFACE ActionListener
