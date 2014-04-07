@@ -2,6 +2,7 @@ package tp3;
 
 import java.awt.AWTEventMulticaster;
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -53,6 +54,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
     private JButton charger;
     private JButton sauvgarder;
     private JButton configuration;
+    private JTextArea textArea;
 
     /**
      * Constructeur sans argument qui initialise tous les composants graphiques.
@@ -81,15 +83,26 @@ public class TP3 extends WindowAdapter implements ActionListener {
         sauvgarder = new JButton("Sauvgarder");
         configuration = new JButton("Configuration");
         
+        textArea = new JTextArea(LARGEUR_FENETRE, HAUTEUR_FENETRE);
+        
+        
+        
         menu = new JPanel();
-        menu.setBounds(10, 10, LARG_ECRAN, 20);
+        menu.setBounds(10, 10, LARGEUR_FENETRE - 25, 50);
         menu.add(nouveau);
         menu.add(charger);
         menu.add(sauvgarder);
         menu.add(configuration);
         menu.doLayout();
         
+        text = new JPanel();
+        text.setBounds(10, menu.getHeight() + 10, LARGEUR_FENETRE - 25, HAUTEUR_FENETRE - (menu.getHeight() + 10));
+        text.add(textArea);
+        
+        
         fenetre.add(menu);
+        fenetre.add(text);
+        
         
         fenetreConfig.setVisible(true);
         fenetre.setVisible(true);
