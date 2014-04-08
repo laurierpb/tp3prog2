@@ -121,6 +121,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         JPanel top = new JPanel();
         JPanel bot = new JPanel();
         
+        //TOP
         fenetreConfig = new JFrame(TITRE_FENETRE_CONFIG);
         fenetreConfig.setLayout(null);
         fenetreConfig.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -174,6 +175,59 @@ public class TP3 extends WindowAdapter implements ActionListener {
         bot.setBounds(10, top.getHeight() + 20, 275, 290);
         bot.setBorder(BorderFactory.createLineBorder(NOIR));
         
+        
+        //BOT
+        JLabel options = new JLabel("OPTIONS                                                                    ");
+        JTextField couleurs = new JTextField("Couleurs                                                                     ");
+        couleurs.setEditable(false);
+        JPanel couleursPan = new JPanel();
+        couleursPan.add(couleurs);
+        
+        JPanel couleursContent = new JPanel();
+        couleursContent.setSize(top.getWidth(), top.getHeight() - 30);
+        
+        couleursContent.setLayout(new GridLayout(4, 2, 30, 5));
+        JLabel fond = new JLabel("Fond");
+        JLabel textSelectionne = new JLabel("Texte selectionné");
+        JLabel selectionTexte = new JLabel("Selection texte");
+        JLabel curseur = new JLabel("Curseur");        
+        
+        JComboBox fondBox = new JComboBox(listeCouleur);
+        JComboBox texteSelectionneBox = new JComboBox(listeCouleur);
+        JComboBox selectionTexteBox = new JComboBox(listeCouleur);
+        JComboBox curseurBox = new JComboBox(listeCouleur);
+        
+        couleursContent.add(fond);
+        couleursContent.add(fondBox);
+        couleursContent.add(textSelectionne);
+        couleursContent.add(texteSelectionneBox);
+        couleursContent.add(selectionTexte);
+        couleursContent.add(selectionTexteBox);
+        couleursContent.add(curseur);
+        couleursContent.add(curseurBox);
+        
+        JTextField autre = new JTextField("Autres                                                                     ");
+        autre.setEditable(false);
+        
+        JPanel autresContent = new JPanel();
+        autresContent.setSize(top.getWidth(), 200);
+        autresContent.setLayout(new GridLayout(2, 2, 10, 5));
+        
+        JCheckBox retourALaLigne = new JCheckBox("Retour à la ligne");
+        retourALaLigne.setSelected(true);
+        JLabel tabulation = new JLabel(" Long. tabulation");
+        JTextField valeurTabulation = new JTextField("3");
+        
+        autresContent.add(retourALaLigne);
+        autresContent.add(new JLabel());
+        autresContent.add(tabulation);
+        autresContent.add(valeurTabulation);
+        
+        bot.add(options);
+        bot.add(couleursPan);
+        bot.add(couleursContent);
+        bot.add(autre);
+        bot.add(autresContent);
         
         fenetreConfig.add(top);
         fenetreConfig.add(bot);
