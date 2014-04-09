@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -141,7 +142,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         JPanel policeContent = new JPanel();
         policeContent.setSize(top.getWidth(), top.getHeight() - 30);
         
-        policeContent.setLayout(new GridLayout(3, 2, -45, 10));
+        policeContent.setLayout(new GridLayout(3, 2, 0, 10));
         JLabel nom = new JLabel("Nom");
         JLabel taille = new JLabel("Taille");
         JLabel couleur = new JLabel("Couleur");
@@ -186,6 +187,10 @@ public class TP3 extends WindowAdapter implements ActionListener {
         JLabel options = new JLabel("OPTIONS                                                                    ");
         JTextField couleurs = new JTextField("Couleurs                                                                     ");
         couleurs.setBackground(BLANC);
+        
+        JLabel label = new JLabel();
+        Font newLabelFont=new Font(label.getFont().getName(),Font.BOLD,label.getFont().getSize());
+        couleurs.setFont(newLabelFont);
         couleurs.setEditable(false);
         JPanel couleursPan = new JPanel();
         couleursPan.add(couleurs);
@@ -215,6 +220,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         
         JTextField autre = new JTextField("Autres                                                                     ");
         autre.setBackground(BLANC);
+        autre.setFont(newLabelFont);
         autre.setEditable(false);
         
         JPanel autresContent = new JPanel();
