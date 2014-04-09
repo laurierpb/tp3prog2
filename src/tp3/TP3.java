@@ -58,6 +58,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
     private JFrame fenetreConfig;
     private JPanel menu;
     private JPanel text;
+    private JPanel fichierPan;
     private JButton nouveau;
     private JButton charger;
     private JButton sauvgarder;
@@ -105,11 +106,16 @@ public class TP3 extends WindowAdapter implements ActionListener {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         
         textArea.setLineWrap(true);
+        JLabel fichier = new JLabel("Fichier : ");
+        JPanel fichierPan = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        fichierPan.setBounds(10,477,LARGEUR_FENETRE - 25, 25);
+        fichierPan.add(fichier);
         
         text.add(scrollPane);
         
         fenetre.add(menu);
         fenetre.add(text);
+        fenetre.add(fichierPan);
         
         fenetre.setVisible(true);
         
@@ -179,6 +185,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         //BOT
         JLabel options = new JLabel("OPTIONS                                                                    ");
         JTextField couleurs = new JTextField("Couleurs                                                                     ");
+        couleurs.setBackground(BLANC);
         couleurs.setEditable(false);
         JPanel couleursPan = new JPanel();
         couleursPan.add(couleurs);
@@ -207,6 +214,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         couleursContent.add(curseurBox);
         
         JTextField autre = new JTextField("Autres                                                                     ");
+        autre.setBackground(BLANC);
         autre.setEditable(false);
         
         JPanel autresContent = new JPanel();
