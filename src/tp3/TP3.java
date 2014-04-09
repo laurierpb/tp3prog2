@@ -204,16 +204,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         JComboBox selectionTexteBox = new JComboBox(listeCouleur);
         JComboBox curseurBox = new JComboBox(listeCouleur);
         
-        couleursContent.add(fond);
-        couleursContent.add(fondBox);
-        couleursContent.add(textSelectionne);
-        couleursContent.add(texteSelectionneBox);
-        couleursContent.add(selectionTexte);
-        couleursContent.add(selectionTexteBox);
-        couleursContent.add(curseur);
-        couleursContent.add(curseurBox);
-        
-        JTextField autre = new JTextField("Autres                                                                     ");
+                   ");
         autre.setBackground(BLANC);
         autre.setEditable(false);
         
