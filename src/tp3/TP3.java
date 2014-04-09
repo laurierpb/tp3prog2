@@ -14,10 +14,6 @@ import java.awt.event.WindowEvent;
 import java.awt.Toolkit;
 import javax.swing.*;
 import javax.swing.border.Border;
-//JesuislaJesuislaJesuislaJesuislaJesuislaJesuisla
-//JesuislaJesuislaJesuislaJesuislaJesuislaJesuisla
-//JesuislaJesuislaJesuislaJesuislaJesuislaJesuisla
-//JesuislaJesuislaJesuislaJesuislaJesuislaJesuisla
 
 public class TP3 extends WindowAdapter implements ActionListener {
 
