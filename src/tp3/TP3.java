@@ -64,6 +64,8 @@ public class TP3 extends WindowAdapter implements ActionListener {
     private JButton charger;
     private JButton sauvgarder;
     private JButton configuration;
+    
+    private String nomFichier = "text.txt";
 
     /**
      * Constructeur sans argument qui initialise tous les composants graphiques.
@@ -107,7 +109,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         
         textArea.setLineWrap(true);
-        JLabel fichier = new JLabel("Fichier : ");
+        JLabel fichier = new JLabel("Fichier : " + nomFichier);
         JPanel fichierPan = new JPanel(new FlowLayout(FlowLayout.LEFT));
         fichierPan.setBounds(10,477,LARGEUR_FENETRE - 25, 25);
         fichierPan.add(fichier);
