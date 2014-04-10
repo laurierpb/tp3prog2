@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -71,7 +72,10 @@ public class TP3 extends WindowAdapter implements ActionListener {
     private JTextArea textArea;
     private JLabel fichier;
     private String nomFichier;
-
+    private JComboBox courier;
+    private JTextField textTaille;
+    private  JComboBox couleurBox;
+    
     /**
      * Constructeur sans argument qui initialise tous les composants graphiques.
      */
@@ -159,10 +163,13 @@ public class TP3 extends WindowAdapter implements ActionListener {
         JLabel nom = new JLabel("Nom");
         JLabel taille = new JLabel("Taille");
         JLabel couleur = new JLabel("Couleur");
-        JComboBox courier = new JComboBox(listeCaract);
+         courier = new JComboBox(listeCaract);
+        courier.addActionListener(this);
         courier.setSelectedIndex(1);
-        JTextField textTaille = new JTextField("12");
-        JComboBox couleurBox = new JComboBox(listeCouleur);
+         textTaille = new JTextField("12");
+        textTaille.addActionListener(this);
+         couleurBox = new JComboBox(listeCouleur);
+        couleurBox.addActionListener(this);
         
         policeContent.add(nom);
         policeContent.add(courier);
@@ -278,7 +285,18 @@ public class TP3 extends WindowAdapter implements ActionListener {
         sauvegarderFichier();
         }else if(e.getSource() == configuration){
         
+        }else if(e.getSource() == courier){
+            Font font = new Font(courier.getSelectedItem().toString(), Font .BOLD,12 );
+        textArea.setFont(font);
+        
+        }else if(e.getSource() == textTaille){
+        
+        }else if(e.getSource() == couleurBox){
+        textArea.setForeground(Color.blue);
         }
+        
+        
+        
         
     }
 
