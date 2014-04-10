@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +14,7 @@ import java.awt.event.WindowEvent;
 import java.awt.Toolkit;
 import javax.swing.*;
 import javax.swing.border.Border;
+import java.io.*;
 
 public class TP3 extends WindowAdapter implements ActionListener {
 
@@ -48,6 +48,8 @@ public class TP3 extends WindowAdapter implements ActionListener {
     public final static String TITRE_FENETRE = "MINI ÉDITEUR";
     public final static String TITRE_FENETRE_CONFIG = "CONFIGURATION";
 
+    
+
     public String[] listeCaract = {"Arial", "Courier", "Lucida Grande", "Time"};
     public String[] listeCouleur = {"Noir", "Blanc", "Jaune", "Rouge", "Rose",
         "Bleu", "Bleu pâle", "Vert", "Vert pâle", "Orange", "Gris"};
@@ -64,8 +66,10 @@ public class TP3 extends WindowAdapter implements ActionListener {
     private JButton charger;
     private JButton sauvgarder;
     private JButton configuration;
-    
-    private String nomFichier = "text.txt";
+   
+    private String lienConfig;
+    private JTextArea textArea;
+    private JLabel fichier;
 
     /**
      * Constructeur sans argument qui initialise tous les composants graphiques.
@@ -89,9 +93,13 @@ public class TP3 extends WindowAdapter implements ActionListener {
         fenetre.setResizable(false);
 
         nouveau = new JButton("Nouveau");
+        nouveau.addActionListener(this);
         charger = new JButton("Charger");
+        charger.addActionListener(this);
         sauvgarder = new JButton("Sauvgarder");
+        sauvgarder.addActionListener(this);
         configuration = new JButton("Configuration");
+        configuration.addActionListener(this);
 
         menu = new JPanel();
         menu.setBounds(10, 5, LARGEUR_FENETRE - 25, 40);
@@ -103,13 +111,14 @@ public class TP3 extends WindowAdapter implements ActionListener {
 
         text = new JPanel();
         text.setBounds(10, menu.getHeight(), LARGEUR_FENETRE - 25, HAUTEUR_FENETRE - (menu.getHeight() + 65));
-        JTextArea textArea = new JTextArea();
+        textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setPreferredSize(new Dimension(text.getSize()));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         
         textArea.setLineWrap(true);
-        JLabel fichier = new JLabel("Fichier : " + nomFichier);
+      
+        fichier = new JLabel("Fichier : ");
         JPanel fichierPan = new JPanel(new FlowLayout(FlowLayout.LEFT));
         fichierPan.setBounds(10,477,LARGEUR_FENETRE - 25, 25);
         fichierPan.add(fichier);
@@ -144,7 +153,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         JPanel policeContent = new JPanel();
         policeContent.setSize(top.getWidth(), top.getHeight() - 30);
         
-        policeContent.setLayout(new GridLayout(3, 2, 0, 10));
+        policeContent.setLayout(new GridLayout(3, 2, -45, 10));
         JLabel nom = new JLabel("Nom");
         JLabel taille = new JLabel("Taille");
         JLabel couleur = new JLabel("Couleur");
@@ -189,10 +198,6 @@ public class TP3 extends WindowAdapter implements ActionListener {
         JLabel options = new JLabel("OPTIONS                                                                    ");
         JTextField couleurs = new JTextField("Couleurs                                                                     ");
         couleurs.setBackground(BLANC);
-        
-        JLabel label = new JLabel();
-        Font newLabelFont=new Font(label.getFont().getName(),Font.BOLD,label.getFont().getSize());
-        couleurs.setFont(newLabelFont);
         couleurs.setEditable(false);
         JPanel couleursPan = new JPanel();
         couleursPan.add(couleurs);
@@ -222,7 +227,6 @@ public class TP3 extends WindowAdapter implements ActionListener {
         
         JTextField autre = new JTextField("Autres                                                                     ");
         autre.setBackground(BLANC);
-        autre.setFont(newLabelFont);
         autre.setEditable(false);
         
         JPanel autresContent = new JPanel();
@@ -248,6 +252,8 @@ public class TP3 extends WindowAdapter implements ActionListener {
         fenetreConfig.add(top);
         fenetreConfig.add(bot);
         fenetreConfig.setVisible(true);
+        
+        textArea.requestFocus();
     }
 
     /**
@@ -262,7 +268,16 @@ public class TP3 extends WindowAdapter implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        //A COMPLETER
+        if(e.getSource() == nouveau){
+        creerNouveau();
+        }else if(e.getSource() == charger){
+        OuvrirFichier();
+        }else if(e.getSource() == sauvgarder){
+        
+        }else if(e.getSource() == configuration){
+        
+        }
+        
     }
 
     /**
@@ -298,6 +313,43 @@ public class TP3 extends WindowAdapter implements ActionListener {
      */
     public static void main(String[] args) {
         new TP3();
+        //verifierConfig();
     }
 
+    
+    private static void verifierConfig()  {
+        String fichier = "config.txt";
+        try{
+        BufferedReader lecteur = new BufferedReader(new FileReader(fichier));
+        }
+        catch (FileNotFoundException e){
+            System.out.println("ok");
+        }
+        System.out.println("parfait");
+        
+    }
+
+    private void creerNouveau() {
+        textArea.setText(null);
+        fichier.setText("Fichier : Nouveau"); 
+        textArea.requestFocus();       
+        
+    }
+
+    private void OuvrirFichier() {
+       JFileChooser fichierSelectionne = new JFileChooser();
+    int retour=fichierSelectionne.showOpenDialog(null);
+    
+    if(retour==JFileChooser.APPROVE_OPTION){
+ 
+   fichierSelectionne.getSelectedFile().getName();
+   
+   fichierSelectionne.getSelectedFile().
+          getAbsolutePath();
+    }else 
+    {
+       //si l'on clique sur ouvrir sans rien
+            }
+
+    }
 }
