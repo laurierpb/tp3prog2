@@ -70,6 +70,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
     private String lienConfig;
     private JTextArea textArea;
     private JLabel fichier;
+    private String nomFichier;
 
     /**
      * Constructeur sans argument qui initialise tous les composants graphiques.
@@ -94,7 +95,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
 
         nouveau = new JButton("Nouveau");
         nouveau.addActionListener(this);
-        charger = new JButton("Charger");
+        charger = new JButton("Ouvrir");
         charger.addActionListener(this);
         sauvgarder = new JButton("Sauvgarder");
         sauvgarder.addActionListener(this);
@@ -117,8 +118,9 @@ public class TP3 extends WindowAdapter implements ActionListener {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         
         textArea.setLineWrap(true);
-      
-        fichier = new JLabel("Fichier : ");
+      nomFichier= "Nouveau";
+        lienConfig = "";
+        fichier = new JLabel("Fichier : " + nomFichier);
         JPanel fichierPan = new JPanel(new FlowLayout(FlowLayout.LEFT));
         fichierPan.setBounds(10,477,LARGEUR_FENETRE - 25, 25);
         fichierPan.add(fichier);
@@ -271,9 +273,9 @@ public class TP3 extends WindowAdapter implements ActionListener {
         if(e.getSource() == nouveau){
         creerNouveau();
         }else if(e.getSource() == charger){
-        OuvrirFichier();
+        ouvrirFichier();
         }else if(e.getSource() == sauvgarder){
-        
+        sauvegarderFichier();
         }else if(e.getSource() == configuration){
         
         }
@@ -317,39 +319,63 @@ public class TP3 extends WindowAdapter implements ActionListener {
     }
 
     
-    private static void verifierConfig()  {
-        String fichier = "config.txt";
-        try{
-        BufferedReader lecteur = new BufferedReader(new FileReader(fichier));
-        }
-        catch (FileNotFoundException e){
-            System.out.println("ok");
-        }
-        System.out.println("parfait");
-        
-    }
+ 
 
     private void creerNouveau() {
         textArea.setText(null);
-        fichier.setText("Fichier : Nouveau"); 
+        fichier.setText("Fichier : " + nomFichier); 
         textArea.requestFocus();       
         
     }
 
-    private void OuvrirFichier() {
-       JFileChooser fichierSelectionne = new JFileChooser();
-    int retour=fichierSelectionne.showOpenDialog(null);
-    
-    if(retour==JFileChooser.APPROVE_OPTION){
- 
-   fichierSelectionne.getSelectedFile().getName();
-   
-   fichierSelectionne.getSelectedFile().
-          getAbsolutePath();
-    }else 
-    {
-       //si l'on clique sur ouvrir sans rien
+    private void ouvrirFichier(){
+      
+        String reponse;
+        int position = 0;
+        
+        if (fichier.getText().equals("Fichier : Nouveau")) {         
+            reponse = UtilitairesTP3.selectionnerFichier(null); 
+        }
+        else{
+            reponse = UtilitairesTP3.selectionnerFichier(lienConfig);
+        }
+         
+            
+            try {
+            textArea.setText(UtilitairesTP3.lireFichier(reponse));
+            position = reponse.lastIndexOf('\\');
+            nomFichier = reponse.substring(position + 1);
+            //lienConfig = reponse.substring(0,position );
+            lienConfig = reponse;
+            fichier.setText("Fichier : " + nomFichier); 
+            
+            }  catch (IOException e)
+            {
+                
+            JOptionPane.showMessageDialog ( null,"Erreur  inattendue.\n"
+                    + " Ouverture du fichier impossible.","Oups", JOptionPane.ERROR_MESSAGE);
             }
+            catch (NullPointerException e)
+            {
+                
+            
+            }
+    }
 
+    private void sauvegarderFichier() {
+        try{
+        if (lienConfig.equals("")) {
+            UtilitairesTP3.sauvegarder(textArea.getText(), null);
+        }else{
+        UtilitairesTP3.sauvegarder(textArea.getText(), lienConfig);
+        }
+        }
+        catch(IOException e){
+         JOptionPane.showMessageDialog ( null,"Erreur  inattendue.\n"
+                    + " Enregistrement du fichier impossible.","Oups", JOptionPane.ERROR_MESSAGE);
+        }
+         
+        
+        
     }
 }
