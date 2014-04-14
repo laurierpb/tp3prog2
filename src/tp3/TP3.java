@@ -17,6 +17,8 @@ import java.awt.Toolkit;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.io.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class TP3 extends WindowAdapter implements ActionListener {
 
@@ -80,6 +82,9 @@ public class TP3 extends WindowAdapter implements ActionListener {
     private  JComboBox texteSelectionneBox;
     private JComboBox selectionTexteBox;
     private JComboBox curseurBox;
+    private JTextField valeurTabulation;
+    private String tempTaille;
+    private String tempFocus;
     
     /**
      * Constructeur sans argument qui initialise tous les composants graphiques.
@@ -168,12 +173,14 @@ public class TP3 extends WindowAdapter implements ActionListener {
         JLabel nom = new JLabel("Nom");
         JLabel taille = new JLabel("Taille");
         JLabel couleur = new JLabel("Couleur");
+        textTaille = new JTextField("12");
+        tempTaille = textTaille.getText();
          courier = new JComboBox(listeCaract);
         courier.addActionListener(this);
         courier.setSelectedIndex(1);
-         textTaille = new JTextField("12");
-        textTaille.addActionListener(this);
-         couleurBox = new JComboBox(listeCouleur);
+        
+       textTaille.addActionListener(this);
+        couleurBox = new JComboBox(listeCouleur);
         couleurBox.addActionListener(this);
         
         policeContent.add(nom);
@@ -255,7 +262,9 @@ public class TP3 extends WindowAdapter implements ActionListener {
         JCheckBox retourALaLigne = new JCheckBox("Retour à la ligne");
         retourALaLigne.setSelected(true);
         JLabel tabulation = new JLabel(" Long. tabulation");
-        JTextField valeurTabulation = new JTextField("3");
+         valeurTabulation = new JTextField("3");
+         tempFocus = valeurTabulation.getText();
+         valeurTabulation.addActionListener(this);
         
         autresContent.add(retourALaLigne);
         autresContent.add(new JLabel());
@@ -298,9 +307,26 @@ public class TP3 extends WindowAdapter implements ActionListener {
         }else if(e.getSource() == courier){
             Font font = new Font(courier.getSelectedItem().toString(), Font .BOLD,12 );
         textArea.setFont(font);
-        
+
         }else if(e.getSource() == textTaille){
-        
+         
+                   if(textTaille.getText().matches("[0-9]+")){
+                       if (Integer.parseInt(textTaille.getText()) >= 10 && Integer.parseInt(textTaille.getText()) <= 100) {
+                           Font font = new Font(courier.getSelectedItem().toString(), Font .BOLD,Integer.parseInt(textTaille.getText()) );
+                           textArea.setFont(font);
+                           tempTaille = textTaille.getText();
+                       }else{
+                       JOptionPane.showMessageDialog ( null,"Erreur  inattendue.\n"
+                    + " Le nombre doit être 10 et 100 inclusivement","Oups", JOptionPane.ERROR_MESSAGE);
+                       }                 
+                       textTaille.setText(tempTaille);
+                       textTaille.requestFocus();
+        }else{
+                       JOptionPane.showMessageDialog ( null,"Erreur  inattendue.\n"
+                    + "La taille ne peut pas contenir de caractères, elle doit contenir seulement des nombres","Oups", JOptionPane.ERROR_MESSAGE);
+                       textTaille.setText(tempTaille);
+                       textTaille.requestFocus();
+                       }
         }else if(e.getSource() == couleurBox){
             textArea.setForeground(trouverCouleur(couleurBox));
         }else if(e.getSource() == fondBox){
@@ -311,6 +337,25 @@ public class TP3 extends WindowAdapter implements ActionListener {
             textArea.setSelectionColor(trouverCouleur(selectionTexteBox));
         }else if(e.getSource() == curseurBox){
             textArea.setCaretColor(trouverCouleur(curseurBox));
+        }else if(e.getSource() == valeurTabulation){
+            
+             if(valeurTabulation.getText().matches("[0-9]+")){
+                       if (Integer.parseInt(valeurTabulation.getText()) >= 2 && Integer.parseInt(valeurTabulation.getText()) <= 20) {
+                          textArea.setTabSize(Integer.parseInt(valeurTabulation.getText()));
+                          tempFocus = valeurTabulation.getText();
+                       }else{
+                       JOptionPane.showMessageDialog ( null,"Erreur  inattendue.\n"
+                    + " Le nombre doit être 2 et 20 inclusivement","Oups", JOptionPane.ERROR_MESSAGE);
+                       valeurTabulation.setText(tempFocus);
+                       valeurTabulation.requestFocus();
+                       }
+                           
+        }else{
+                       JOptionPane.showMessageDialog ( null,"Erreur  inattendue.\n"
+                    + "La tabulation ne peut pas contenir de caractères, elle doit contenir seulement des nombres","Oups", JOptionPane.ERROR_MESSAGE);
+                       valeurTabulation.setText(tempFocus);
+                       valeurTabulation.requestFocus();
+                       }
         }
         
         
