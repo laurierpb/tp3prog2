@@ -4,6 +4,7 @@ import java.awt.AWTEventMulticaster;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -75,6 +76,10 @@ public class TP3 extends WindowAdapter implements ActionListener {
     private JComboBox courier;
     private JTextField textTaille;
     private  JComboBox couleurBox;
+    private JComboBox fondBox;
+    private  JComboBox texteSelectionneBox;
+    private JComboBox selectionTexteBox;
+    private JComboBox curseurBox;
     
     /**
      * Constructeur sans argument qui initialise tous les composants graphiques.
@@ -220,10 +225,15 @@ public class TP3 extends WindowAdapter implements ActionListener {
         JLabel selectionTexte = new JLabel("Selection texte");
         JLabel curseur = new JLabel("Curseur");        
         
-        JComboBox fondBox = new JComboBox(listeCouleur);
-        JComboBox texteSelectionneBox = new JComboBox(listeCouleur);
-        JComboBox selectionTexteBox = new JComboBox(listeCouleur);
-        JComboBox curseurBox = new JComboBox(listeCouleur);
+         fondBox = new JComboBox(listeCouleur);
+         fondBox.addActionListener(this);
+         texteSelectionneBox = new JComboBox(listeCouleur);
+         texteSelectionneBox.addActionListener(this);
+         selectionTexteBox = new JComboBox(listeCouleur);
+        selectionTexteBox.addActionListener(this);
+         curseurBox = new JComboBox(listeCouleur);
+         curseurBox.addActionListener(this);
+         
         
         couleursContent.add(fond);
         couleursContent.add(fondBox);
@@ -292,8 +302,17 @@ public class TP3 extends WindowAdapter implements ActionListener {
         }else if(e.getSource() == textTaille){
         
         }else if(e.getSource() == couleurBox){
-        textArea.setForeground(Color.blue);
+            textArea.setForeground(trouverCouleur(couleurBox));
+        }else if(e.getSource() == fondBox){
+            textArea.setBackground(trouverCouleur(fondBox));
+        }else if(e.getSource() == texteSelectionneBox){
+            textArea.setSelectedTextColor(trouverCouleur(texteSelectionneBox));
+        }else if(e.getSource() == selectionTexteBox){
+            textArea.setSelectionColor(trouverCouleur(selectionTexteBox));
+        }else if(e.getSource() == curseurBox){
+            textArea.setCaretColor(trouverCouleur(curseurBox));
         }
+        
         
         
         
@@ -363,7 +382,6 @@ public class TP3 extends WindowAdapter implements ActionListener {
             textArea.setText(UtilitairesTP3.lireFichier(reponse));
             position = reponse.lastIndexOf('\\');
             nomFichier = reponse.substring(position + 1);
-            //lienConfig = reponse.substring(0,position );
             lienConfig = reponse;
             fichier.setText("Fichier : " + nomFichier); 
             
@@ -395,5 +413,46 @@ public class TP3 extends WindowAdapter implements ActionListener {
          
         
         
+    }
+
+    private Color trouverCouleur( JComboBox Jcombo) {
+        Color couleur = null; 
+
+        if (Jcombo.getSelectedItem().toString().equals(listeCouleur[0]))
+        {
+        couleur = Color.BLACK;
+
+        }else  if (Jcombo.getSelectedItem().toString().equals(listeCouleur[1]))
+        {
+        couleur = Color.WHITE;
+        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[2]))
+        {
+        couleur = Color.YELLOW;
+        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[3]))
+        {
+        couleur = Color.RED;
+        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[4]))
+        {
+        couleur = Color.PINK;
+        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[5]))
+        {
+        couleur = Color.BLUE;
+        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[6]))
+        {
+        couleur = new Color(31, 190, 214);
+        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[7]))
+        {
+        couleur = Color.GREEN;
+        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[8]))
+        {
+        couleur = new Color(144, 238, 144);
+        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[9]))
+        {
+        couleur = Color.ORANGE;
+        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[10]))
+        {
+        couleur = Color.GRAY;
+        }
+        return couleur;
     }
 }
