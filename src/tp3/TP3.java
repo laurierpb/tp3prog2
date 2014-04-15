@@ -85,6 +85,10 @@ public class TP3 extends WindowAdapter implements ActionListener {
     private JTextField valeurTabulation;
     private String tempTaille;
     private String tempFocus;
+    private JRadioButton normal;
+    private  JRadioButton gras;
+    private  JRadioButton italique;
+    private  JCheckBox retourALaLigne;
     
     /**
      * Constructeur sans argument qui initialise tous les composants graphiques.
@@ -177,7 +181,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         tempTaille = textTaille.getText();
          courier = new JComboBox(listeCaract);
         courier.addActionListener(this);
-        courier.setSelectedIndex(1);
+       
         
        textTaille.addActionListener(this);
         couleurBox = new JComboBox(listeCouleur);
@@ -190,15 +194,21 @@ public class TP3 extends WindowAdapter implements ActionListener {
         policeContent.add(couleur);
         policeContent.add(couleurBox);
         
-        JRadioButton normal = new JRadioButton("Normal     ");
-        JRadioButton gras = new JRadioButton("Gras     ");
-        JRadioButton italique = new JRadioButton("Italique     ");
+         normal = new JRadioButton("Normal     ");
+        normal.addActionListener(this);
+         gras = new JRadioButton("Gras     ");
+         gras.addActionListener(this);
+         italique = new JRadioButton("Italique     ");
+         italique.addActionListener(this);
         normal.setSelected(true);
+        
+         courier.setSelectedIndex(1);
         
         ButtonGroup groupeRadio = new ButtonGroup();
         groupeRadio.add(normal);
         groupeRadio.add(gras);
         groupeRadio.add(italique);
+        
         
         JPanel panelRadio = new JPanel(new FlowLayout());
         panelRadio.add(normal);
@@ -259,8 +269,11 @@ public class TP3 extends WindowAdapter implements ActionListener {
         autresContent.setSize(top.getWidth(), 200);
         autresContent.setLayout(new GridLayout(2, 2, 10, 5));
         
-        JCheckBox retourALaLigne = new JCheckBox("Retour à la ligne");
+        retourALaLigne = new JCheckBox("Retour à la ligne");
         retourALaLigne.setSelected(true);
+        textArea.setWrapStyleWord(true);
+        
+        retourALaLigne.addActionListener(this);
         JLabel tabulation = new JLabel(" Long. tabulation");
          valeurTabulation = new JTextField("3");
          tempFocus = valeurTabulation.getText();
@@ -303,17 +316,18 @@ public class TP3 extends WindowAdapter implements ActionListener {
         }else if(e.getSource() == sauvgarder){
         sauvegarderFichier();
         }else if(e.getSource() == configuration){
-        
+            fenetreConfig.setLocation(fenetre.getX()+fenetre.getWidth(), fenetre.getY());
+        fenetreConfig.setVisible(true);
         }else if(e.getSource() == courier){
-            Font font = new Font(courier.getSelectedItem().toString(), Font .BOLD,12 );
-        textArea.setFont(font);
+            
+        textArea.setFont(trouverFont());
 
         }else if(e.getSource() == textTaille){
          
                    if(textTaille.getText().matches("[0-9]+")){
                        if (Integer.parseInt(textTaille.getText()) >= 10 && Integer.parseInt(textTaille.getText()) <= 100) {
-                           Font font = new Font(courier.getSelectedItem().toString(), Font .BOLD,Integer.parseInt(textTaille.getText()) );
-                           textArea.setFont(font);
+                           
+                           textArea.setFont(trouverFont());
                            tempTaille = textTaille.getText();
                        }else{
                        JOptionPane.showMessageDialog ( null,"Erreur  inattendue.\n"
@@ -356,6 +370,21 @@ public class TP3 extends WindowAdapter implements ActionListener {
                        valeurTabulation.setText(tempFocus);
                        valeurTabulation.requestFocus();
                        }
+        }else if(e.getSource() == normal){
+           
+                           textArea.setFont(trouverFont());
+        }else if(e.getSource() == gras){
+          
+                           textArea.setFont(trouverFont());
+        }else if(e.getSource() == italique){
+            
+                           textArea.setFont(trouverFont());
+        }else if(e.getSource() == retourALaLigne){
+            if(retourALaLigne.isSelected()){
+                           textArea.setWrapStyleWord(true);
+            }else{
+              textArea.setWrapStyleWord(false);
+            }
         }
         
         
@@ -499,5 +528,30 @@ public class TP3 extends WindowAdapter implements ActionListener {
         couleur = Color.GRAY;
         }
         return couleur;
+    }
+
+    private Font trouverFont() {
+      Font font = null;
+      String police = null;
+      
+      if(courier.getSelectedItem().equals("Arial")){
+      police ="Arial Unicode MS"; 
+      }else if(courier.getSelectedItem().equals("Courier")){
+      police ="Courier New";
+      }else if(courier.getSelectedItem().equals("Lucida Grande")){
+      police = "Lucida Grande";
+      }else if(courier.getSelectedItem().equals("Time")){
+      police ="Times New Roman";
+      } 
+      if (normal.isSelected()){
+      font = new Font(police, Font .PLAIN,Integer.parseInt(textTaille.getText()) );
+      }else if(gras.isSelected()){
+      font = new Font(police, Font .BOLD,Integer.parseInt(textTaille.getText()) );
+      }else if(italique.isSelected()){
+      font = new Font(police, Font .ITALIC,Integer.parseInt(textTaille.getText()) );
+      }
+      
+      return font;
+        
     }
 }
