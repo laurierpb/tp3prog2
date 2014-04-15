@@ -52,8 +52,6 @@ public class TP3 extends WindowAdapter implements ActionListener {
     public final static String TITRE_FENETRE = "MINI ÉDITEUR";
     public final static String TITRE_FENETRE_CONFIG = "CONFIGURATION";
 
-    
-
     public String[] listeCaract = {"Arial", "Courier", "Lucida Grande", "Time"};
     public String[] listeCouleur = {"Noir", "Blanc", "Jaune", "Rouge", "Rose",
         "Bleu", "Bleu pâle", "Vert", "Vert pâle", "Orange", "Gris"};
@@ -70,26 +68,26 @@ public class TP3 extends WindowAdapter implements ActionListener {
     private JButton charger;
     private JButton sauvgarder;
     private JButton configuration;
-   
+
     private String lienConfig;
     private JTextArea textArea;
     private JLabel fichier;
     private String nomFichier;
     private JComboBox courier;
     private JTextField textTaille;
-    private  JComboBox couleurBox;
+    private JComboBox couleurBox;
     private JComboBox fondBox;
-    private  JComboBox texteSelectionneBox;
+    private JComboBox texteSelectionneBox;
     private JComboBox selectionTexteBox;
     private JComboBox curseurBox;
     private JTextField valeurTabulation;
     private String tempTaille;
     private String tempFocus;
     private JRadioButton normal;
-    private  JRadioButton gras;
-    private  JRadioButton italique;
-    private  JCheckBox retourALaLigne;
-    
+    private JRadioButton gras;
+    private JRadioButton italique;
+    private JCheckBox retourALaLigne;
+
     /**
      * Constructeur sans argument qui initialise tous les composants graphiques.
      */
@@ -103,8 +101,8 @@ public class TP3 extends WindowAdapter implements ActionListener {
     private void init() {
 
         /*
-        * FENETRE
-        */
+         * FENETRE
+         */
         fenetre = new JFrame(TITRE_FENETRE);
         fenetre.setBounds(LARG_ECRAN / 2 - LARGEUR_FENETRE / 2, HAUT_ECRAN / 2 - HAUTEUR_FENETRE / 2, LARGEUR_FENETRE, HAUTEUR_FENETRE);
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,97 +132,90 @@ public class TP3 extends WindowAdapter implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setPreferredSize(new Dimension(text.getSize()));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        
+
         textArea.setLineWrap(true);
-      nomFichier= "Nouveau";
+        nomFichier = "Nouveau";
         lienConfig = "";
         fichier = new JLabel("Fichier : " + nomFichier);
         JPanel fichierPan = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        fichierPan.setBounds(10,477,LARGEUR_FENETRE - 25, 25);
+        fichierPan.setBounds(10, 477, LARGEUR_FENETRE - 25, 25);
         fichierPan.add(fichier);
-        
+
         text.add(scrollPane);
-        
+
         fenetre.add(menu);
         fenetre.add(text);
         fenetre.add(fichierPan);
-        
+
         fenetre.setVisible(true);
-        
-        
-        
+
         /*
-        * CONFIGURATION
-        */
+         * CONFIGURATION
+         */
         JPanel top = new JPanel();
         JPanel bot = new JPanel();
-        
+
         //TOP
         fenetreConfig = new JFrame(TITRE_FENETRE_CONFIG);
         fenetreConfig.setLayout(null);
         fenetreConfig.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         fenetreConfig.setBounds(fenetre.getX() + fenetre.getWidth(), fenetre.getY(), 300, fenetre.getHeight());
         fenetreConfig.setResizable(false);
-        
+
         top.setBounds(10, 10, 275, 190);
         top.setBorder(BorderFactory.createLineBorder(NOIR));
         JLabel policeCaract = new JLabel("POLICE DE CARACTÈRES                                        ");
-        
+
         JPanel policeContent = new JPanel();
         policeContent.setSize(top.getWidth(), top.getHeight() - 30);
-        
+
         policeContent.setLayout(new GridLayout(3, 2, -45, 10));
         JLabel nom = new JLabel("Nom");
         JLabel taille = new JLabel("Taille");
         JLabel couleur = new JLabel("Couleur");
         textTaille = new JTextField("12");
         tempTaille = textTaille.getText();
-         courier = new JComboBox(listeCaract);
+        courier = new JComboBox(listeCaract);
         courier.addActionListener(this);
-       
-        
-       textTaille.addActionListener(this);
+
+        textTaille.addActionListener(this);
         couleurBox = new JComboBox(listeCouleur);
         couleurBox.addActionListener(this);
-        
+
         policeContent.add(nom);
         policeContent.add(courier);
         policeContent.add(taille);
         policeContent.add(textTaille);
         policeContent.add(couleur);
         policeContent.add(couleurBox);
-        
-         normal = new JRadioButton("Normal     ");
+
+        normal = new JRadioButton("Normal     ");
         normal.addActionListener(this);
-         gras = new JRadioButton("Gras     ");
-         gras.addActionListener(this);
-         italique = new JRadioButton("Italique     ");
-         italique.addActionListener(this);
+        gras = new JRadioButton("Gras     ");
+        gras.addActionListener(this);
+        italique = new JRadioButton("Italique     ");
+        italique.addActionListener(this);
         normal.setSelected(true);
-        
-         courier.setSelectedIndex(1);
-        
+
+        courier.setSelectedIndex(1);
+
         ButtonGroup groupeRadio = new ButtonGroup();
         groupeRadio.add(normal);
         groupeRadio.add(gras);
         groupeRadio.add(italique);
-        
-        
+
         JPanel panelRadio = new JPanel(new FlowLayout());
         panelRadio.add(normal);
         panelRadio.add(gras);
         panelRadio.add(italique);
-        
+
         top.add(policeCaract);
         top.add(policeContent);
         top.add(panelRadio);
-        
-        
-        
+
         bot.setBounds(10, top.getHeight() + 20, 275, 290);
         bot.setBorder(BorderFactory.createLineBorder(NOIR));
-        
-        
+
         //BOT
         JLabel options = new JLabel("OPTIONS                                                                    ");
         JTextField couleurs = new JTextField("Couleurs                                                                     ");
@@ -232,26 +223,25 @@ public class TP3 extends WindowAdapter implements ActionListener {
         couleurs.setEditable(false);
         JPanel couleursPan = new JPanel();
         couleursPan.add(couleurs);
-        
+
         JPanel couleursContent = new JPanel();
         couleursContent.setSize(top.getWidth(), top.getHeight() - 30);
-        
+
         couleursContent.setLayout(new GridLayout(4, 2, 30, 5));
         JLabel fond = new JLabel("Fond");
         JLabel textSelectionne = new JLabel("Texte selectionné");
         JLabel selectionTexte = new JLabel("Selection texte");
-        JLabel curseur = new JLabel("Curseur");        
-        
-         fondBox = new JComboBox(listeCouleur);
-         fondBox.addActionListener(this);
-         texteSelectionneBox = new JComboBox(listeCouleur);
-         texteSelectionneBox.addActionListener(this);
-         selectionTexteBox = new JComboBox(listeCouleur);
+        JLabel curseur = new JLabel("Curseur");
+
+        fondBox = new JComboBox(listeCouleur);
+        fondBox.addActionListener(this);
+        texteSelectionneBox = new JComboBox(listeCouleur);
+        texteSelectionneBox.addActionListener(this);
+        selectionTexteBox = new JComboBox(listeCouleur);
         selectionTexteBox.addActionListener(this);
-         curseurBox = new JComboBox(listeCouleur);
-         curseurBox.addActionListener(this);
-         
-        
+        curseurBox = new JComboBox(listeCouleur);
+        curseurBox.addActionListener(this);
+
         couleursContent.add(fond);
         couleursContent.add(fondBox);
         couleursContent.add(textSelectionne);
@@ -260,40 +250,40 @@ public class TP3 extends WindowAdapter implements ActionListener {
         couleursContent.add(selectionTexteBox);
         couleursContent.add(curseur);
         couleursContent.add(curseurBox);
-        
+
         JTextField autre = new JTextField("Autres                                                                     ");
         autre.setBackground(BLANC);
         autre.setEditable(false);
-        
+
         JPanel autresContent = new JPanel();
         autresContent.setSize(top.getWidth(), 200);
         autresContent.setLayout(new GridLayout(2, 2, 10, 5));
-        
+
         retourALaLigne = new JCheckBox("Retour à la ligne");
         retourALaLigne.setSelected(true);
         textArea.setWrapStyleWord(true);
-        
+
         retourALaLigne.addActionListener(this);
         JLabel tabulation = new JLabel(" Long. tabulation");
-         valeurTabulation = new JTextField("3");
-         tempFocus = valeurTabulation.getText();
-         valeurTabulation.addActionListener(this);
-        
+        valeurTabulation = new JTextField("3");
+        tempFocus = valeurTabulation.getText();
+        valeurTabulation.addActionListener(this);
+
         autresContent.add(retourALaLigne);
         autresContent.add(new JLabel());
         autresContent.add(tabulation);
         autresContent.add(valeurTabulation);
-        
+
         bot.add(options);
         bot.add(couleursPan);
         bot.add(couleursContent);
         bot.add(autre);
         bot.add(autresContent);
-        
+
         fenetreConfig.add(top);
         fenetreConfig.add(bot);
         fenetreConfig.setVisible(true);
-        
+
         textArea.requestFocus();
     }
 
@@ -309,88 +299,85 @@ public class TP3 extends WindowAdapter implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == nouveau){
-        creerNouveau();
-        }else if(e.getSource() == charger){
-        ouvrirFichier();
-        }else if(e.getSource() == sauvgarder){
-        sauvegarderFichier();
-        }else if(e.getSource() == configuration){
-            fenetreConfig.setLocation(fenetre.getX()+fenetre.getWidth(), fenetre.getY());
-        fenetreConfig.setVisible(true);
-        }else if(e.getSource() == courier){
-            
-        textArea.setFont(trouverFont());
 
-        }else if(e.getSource() == textTaille){
-         
-                   if(textTaille.getText().matches("[0-9]+")){
-                       if (Integer.parseInt(textTaille.getText()) >= 10 && Integer.parseInt(textTaille.getText()) <= 100) {
-                           
-                           textArea.setFont(trouverFont());
-                           tempTaille = textTaille.getText();
-                       }else{
-                       JOptionPane.showMessageDialog ( null,"Erreur  inattendue.\n"
-                    + " Le nombre doit être 10 et 100 inclusivement","Oups", JOptionPane.ERROR_MESSAGE);
-                       }                 
-                       textTaille.setText(tempTaille);
-                       textTaille.requestFocus();
-        }else{
-                       JOptionPane.showMessageDialog ( null,"Erreur  inattendue.\n"
-                    + "La taille ne peut pas contenir de caractères, elle doit contenir seulement des nombres","Oups", JOptionPane.ERROR_MESSAGE);
-                       textTaille.setText(tempTaille);
-                       textTaille.requestFocus();
-                       }
-        }else if(e.getSource() == couleurBox){
+        if (e.getSource() == nouveau) {
+            creerNouveau();
+        } else if (e.getSource() == charger) {
+            ouvrirFichier();
+        } else if (e.getSource() == sauvgarder) {
+            sauvegarderFichier();
+        } else if (e.getSource() == configuration) {
+            fenetreConfig.setLocation(fenetre.getX() + fenetre.getWidth(), fenetre.getY());
+            fenetreConfig.setVisible(true);
+        } else if (e.getSource() == courier) {
+
+            textArea.setFont(trouverFont());
+
+        } else if (e.getSource() == textTaille) {
+
+            if (textTaille.getText().matches("[0-9]+")) {
+                if (Integer.parseInt(textTaille.getText()) >= 10 && Integer.parseInt(textTaille.getText()) <= 100) {
+
+                    textArea.setFont(trouverFont());
+                    tempTaille = textTaille.getText();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
+                            + " Le nombre doit être 10 et 100 inclusivement", "Oups", JOptionPane.ERROR_MESSAGE);
+                }
+                textTaille.setText(tempTaille);
+                textTaille.requestFocus();
+            } else {
+                JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
+                        + "La taille ne peut pas contenir de caractères, elle doit contenir seulement des nombres", "Oups", JOptionPane.ERROR_MESSAGE);
+                textTaille.setText(tempTaille);
+                textTaille.requestFocus();
+            }
+        } else if (e.getSource() == couleurBox) {
             textArea.setForeground(trouverCouleur(couleurBox));
-        }else if(e.getSource() == fondBox){
+        } else if (e.getSource() == fondBox) {
             textArea.setBackground(trouverCouleur(fondBox));
-        }else if(e.getSource() == texteSelectionneBox){
+        } else if (e.getSource() == texteSelectionneBox) {
             textArea.setSelectedTextColor(trouverCouleur(texteSelectionneBox));
-        }else if(e.getSource() == selectionTexteBox){
+        } else if (e.getSource() == selectionTexteBox) {
             textArea.setSelectionColor(trouverCouleur(selectionTexteBox));
-        }else if(e.getSource() == curseurBox){
+        } else if (e.getSource() == curseurBox) {
             textArea.setCaretColor(trouverCouleur(curseurBox));
-        }else if(e.getSource() == valeurTabulation){
-            
-             if(valeurTabulation.getText().matches("[0-9]+")){
-                       if (Integer.parseInt(valeurTabulation.getText()) >= 2 && Integer.parseInt(valeurTabulation.getText()) <= 20) {
-                          textArea.setTabSize(Integer.parseInt(valeurTabulation.getText()));
-                          tempFocus = valeurTabulation.getText();
-                       }else{
-                       JOptionPane.showMessageDialog ( null,"Erreur  inattendue.\n"
-                    + " Le nombre doit être 2 et 20 inclusivement","Oups", JOptionPane.ERROR_MESSAGE);
-                       valeurTabulation.setText(tempFocus);
-                       valeurTabulation.requestFocus();
-                       }
-                           
-        }else{
-                       JOptionPane.showMessageDialog ( null,"Erreur  inattendue.\n"
-                    + "La tabulation ne peut pas contenir de caractères, elle doit contenir seulement des nombres","Oups", JOptionPane.ERROR_MESSAGE);
-                       valeurTabulation.setText(tempFocus);
-                       valeurTabulation.requestFocus();
-                       }
-        }else if(e.getSource() == normal){
-           
-                           textArea.setFont(trouverFont());
-        }else if(e.getSource() == gras){
-          
-                           textArea.setFont(trouverFont());
-        }else if(e.getSource() == italique){
-            
-                           textArea.setFont(trouverFont());
-        }else if(e.getSource() == retourALaLigne){
-            if(retourALaLigne.isSelected()){
-                           textArea.setWrapStyleWord(true);
-            }else{
-              textArea.setWrapStyleWord(false);
+        } else if (e.getSource() == valeurTabulation) {
+
+            if (valeurTabulation.getText().matches("[0-9]+")) {
+                if (Integer.parseInt(valeurTabulation.getText()) >= 2 && Integer.parseInt(valeurTabulation.getText()) <= 20) {
+                    textArea.setTabSize(Integer.parseInt(valeurTabulation.getText()));
+                    tempFocus = valeurTabulation.getText();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
+                            + " Le nombre doit être 2 et 20 inclusivement", "Oups", JOptionPane.ERROR_MESSAGE);
+                    valeurTabulation.setText(tempFocus);
+                    valeurTabulation.requestFocus();
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
+                        + "La tabulation ne peut pas contenir de caractères, elle doit contenir seulement des nombres", "Oups", JOptionPane.ERROR_MESSAGE);
+                valeurTabulation.setText(tempFocus);
+                valeurTabulation.requestFocus();
+            }
+        } else if (e.getSource() == normal) {
+
+            textArea.setFont(trouverFont());
+        } else if (e.getSource() == gras) {
+
+            textArea.setFont(trouverFont());
+        } else if (e.getSource() == italique) {
+
+            textArea.setFont(trouverFont());
+        } else if (e.getSource() == retourALaLigne) {
+            if (retourALaLigne.isSelected()) {
+                textArea.setWrapStyleWord(true);
+            } else {
+                textArea.setWrapStyleWord(false);
             }
         }
-        
-        
-        
-        
-        
+
     }
 
     /**
@@ -402,7 +389,15 @@ public class TP3 extends WindowAdapter implements ActionListener {
      * CONFIG_CHEMIN_FIC.
      */
     private void sauvegarderConfig() {
-        //A COMPLETER
+       
+        
+        try {
+            UtilitairesTP3.sauvegarder(textArea.getText(), lienConfig);
+            }
+         catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
+                    + " Enregistrement du fichier impossible.", "Oups", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -429,129 +424,106 @@ public class TP3 extends WindowAdapter implements ActionListener {
         //verifierConfig();
     }
 
-    
- 
-
     private void creerNouveau() {
         textArea.setText(null);
-        fichier.setText("Fichier : Nouveau"); 
-        textArea.requestFocus();       
-        
+        fichier.setText("Fichier : Nouveau");
+        textArea.requestFocus();
+
     }
 
-    private void ouvrirFichier(){
-      
+    private void ouvrirFichier() {
+
         String reponse;
         int position = 0;
-        
-        if (fichier.getText().equals("Fichier : Nouveau")) {         
-            reponse = UtilitairesTP3.selectionnerFichier(null); 
-        }
-        else{
+
+        if (fichier.getText().equals("Fichier : Nouveau")) {
+            reponse = UtilitairesTP3.selectionnerFichier(null);
+        } else {
             reponse = UtilitairesTP3.selectionnerFichier(lienConfig);
         }
-         
-            
-            try {
+
+        try {
             textArea.setText(UtilitairesTP3.lireFichier(reponse));
             position = reponse.lastIndexOf('\\');
             nomFichier = reponse.substring(position + 1);
             lienConfig = reponse;
-            fichier.setText("Fichier : " + nomFichier); 
-            
-            }  catch (IOException e)
-            {
-                
-            JOptionPane.showMessageDialog ( null,"Erreur  inattendue.\n"
-                    + " Ouverture du fichier impossible.","Oups", JOptionPane.ERROR_MESSAGE);
-            }
-            catch (NullPointerException e)
-            {
-                
-            
-            }
+            fichier.setText("Fichier : " + nomFichier);
+
+        } catch (IOException e) {
+
+            JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
+                    + " Ouverture du fichier impossible.", "Oups", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException e) {
+
+        }
     }
 
     private void sauvegarderFichier() {
-        try{
-        if (lienConfig.equals("")) {
-            UtilitairesTP3.sauvegarder(textArea.getText(), null);
-        }else{
-        UtilitairesTP3.sauvegarder(textArea.getText(), lienConfig);
+        try {
+            if (lienConfig.equals("")) {
+                UtilitairesTP3.sauvegarder(textArea.getText(), null);
+            } else {
+                UtilitairesTP3.sauvegarder(textArea.getText(), lienConfig);
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
+                    + " Enregistrement du fichier impossible.", "Oups", JOptionPane.ERROR_MESSAGE);
         }
-        }
-        catch(IOException e){
-         JOptionPane.showMessageDialog ( null,"Erreur  inattendue.\n"
-                    + " Enregistrement du fichier impossible.","Oups", JOptionPane.ERROR_MESSAGE);
-        }
-         
-        
-        
+
     }
 
-    private Color trouverCouleur( JComboBox Jcombo) {
-        Color couleur = null; 
+    private Color trouverCouleur(JComboBox Jcombo) {
+        Color couleur = null;
 
-        if (Jcombo.getSelectedItem().toString().equals(listeCouleur[0]))
-        {
-        couleur = Color.BLACK;
+        if (Jcombo.getSelectedItem().toString().equals(listeCouleur[0])) {
+            couleur = Color.BLACK;
 
-        }else  if (Jcombo.getSelectedItem().toString().equals(listeCouleur[1]))
-        {
-        couleur = Color.WHITE;
-        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[2]))
-        {
-        couleur = Color.YELLOW;
-        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[3]))
-        {
-        couleur = Color.RED;
-        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[4]))
-        {
-        couleur = Color.PINK;
-        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[5]))
-        {
-        couleur = Color.BLUE;
-        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[6]))
-        {
-        couleur = new Color(31, 190, 214);
-        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[7]))
-        {
-        couleur = Color.GREEN;
-        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[8]))
-        {
-        couleur = new Color(144, 238, 144);
-        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[9]))
-        {
-        couleur = Color.ORANGE;
-        }else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[10]))
-        {
-        couleur = Color.GRAY;
+        } else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[1])) {
+            couleur = Color.WHITE;
+        } else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[2])) {
+            couleur = Color.YELLOW;
+        } else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[3])) {
+            couleur = Color.RED;
+        } else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[4])) {
+            couleur = Color.PINK;
+        } else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[5])) {
+            couleur = Color.BLUE;
+        } else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[6])) {
+            couleur = new Color(31, 190, 214);
+        } else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[7])) {
+            couleur = Color.GREEN;
+        } else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[8])) {
+            couleur = new Color(144, 238, 144);
+        } else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[9])) {
+            couleur = Color.ORANGE;
+        } else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[10])) {
+            couleur = Color.GRAY;
         }
         return couleur;
     }
 
     private Font trouverFont() {
-      Font font = null;
-      String police = null;
-      
-      if(courier.getSelectedItem().equals("Arial")){
-      police ="Arial Unicode MS"; 
-      }else if(courier.getSelectedItem().equals("Courier")){
-      police ="Courier New";
-      }else if(courier.getSelectedItem().equals("Lucida Grande")){
-      police = "Lucida Grande";
-      }else if(courier.getSelectedItem().equals("Time")){
-      police ="Times New Roman";
-      } 
-      if (normal.isSelected()){
-      font = new Font(police, Font .PLAIN,Integer.parseInt(textTaille.getText()) );
-      }else if(gras.isSelected()){
-      font = new Font(police, Font .BOLD,Integer.parseInt(textTaille.getText()) );
-      }else if(italique.isSelected()){
-      font = new Font(police, Font .ITALIC,Integer.parseInt(textTaille.getText()) );
-      }
-      
-      return font;
-        
+        Font font = null;
+        String police = null;
+
+        if (courier.getSelectedItem().equals("Arial")) {
+            police = "Arial Unicode MS";
+        } else if (courier.getSelectedItem().equals("Courier")) {
+            police = "Courier New";
+        } else if (courier.getSelectedItem().equals("Lucida Grande")) {
+            police = "Lucida Bright";
+        } else if (courier.getSelectedItem().equals("Time")) {
+            police = "Times New Roman";
+        }
+        if (normal.isSelected()) {
+            font = new Font(police, Font.PLAIN, Integer.parseInt(textTaille.getText()));
+        } else if (gras.isSelected()) {
+            font = new Font(police, Font.BOLD, Integer.parseInt(textTaille.getText()));
+        } else if (italique.isSelected()) {
+            font = new Font(police, Font.ITALIC, Integer.parseInt(textTaille.getText()));
+        }
+
+        return font;
+
     }
 }
