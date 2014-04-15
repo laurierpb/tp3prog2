@@ -434,7 +434,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
 
     private void creerNouveau() {
         textArea.setText(null);
-        fichier.setText("Fichier : " + nomFichier); 
+        fichier.setText("Fichier : Nouveau"); 
         textArea.requestFocus();       
         
     }
