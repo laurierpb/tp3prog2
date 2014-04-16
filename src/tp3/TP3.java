@@ -51,7 +51,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
     //Titre de la fenetre de l'editeur
     public final static String TITRE_FENETRE = "MINI ÉDITEUR";
     public final static String TITRE_FENETRE_CONFIG = "CONFIGURATION";
-    
+
     public String[] listeCaract = {"Arial", "Courier", "Lucida Grande", "Time"};
     public String[] listeCouleur = {"Noir", "Blanc", "Jaune", "Rouge", "Rose",
         "Bleu", "Bleu pâle", "Vert", "Vert pâle", "Orange", "Gris"};
@@ -68,7 +68,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
     private JButton charger;
     private JButton sauvgarder;
     private JButton configuration;
-    
+
     private String lienConfig;
     private JTextArea textArea;
     private JLabel fichier;
@@ -108,7 +108,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenetre.setLayout(null);
         fenetre.setResizable(false);
-        
+
         nouveau = new JButton("Nouveau");
         nouveau.addActionListener(this);
         charger = new JButton("Ouvrir");
@@ -117,7 +117,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         sauvgarder.addActionListener(this);
         configuration = new JButton("Configuration");
         configuration.addActionListener(this);
-        
+
         menu = new JPanel();
         menu.setBounds(10, 5, LARGEUR_FENETRE - 25, 40);
         menu.add(nouveau);
@@ -125,14 +125,14 @@ public class TP3 extends WindowAdapter implements ActionListener {
         menu.add(sauvgarder);
         menu.add(configuration);
         menu.doLayout();
-        
+
         text = new JPanel();
         text.setBounds(10, menu.getHeight(), LARGEUR_FENETRE - 25, HAUTEUR_FENETRE - (menu.getHeight() + 65));
         textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setPreferredSize(new Dimension(text.getSize()));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        
+
         textArea.setLineWrap(true);
         nomFichier = "Nouveau";
         lienConfig = "";
@@ -140,9 +140,9 @@ public class TP3 extends WindowAdapter implements ActionListener {
         JPanel fichierPan = new JPanel(new FlowLayout(FlowLayout.LEFT));
         fichierPan.setBounds(10, 477, LARGEUR_FENETRE - 25, 25);
         fichierPan.add(fichier);
-        
+
         text.add(scrollPane);
-        
+
         fenetre.add(menu);
         fenetre.add(text);
         fenetre.add(fichierPan);
@@ -161,14 +161,14 @@ public class TP3 extends WindowAdapter implements ActionListener {
         fenetreConfig.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         fenetreConfig.setBounds(fenetre.getX() + fenetre.getWidth(), fenetre.getY(), 300, fenetre.getHeight());
         fenetreConfig.setResizable(false);
-        
+
         top.setBounds(10, 10, 275, 190);
         top.setBorder(BorderFactory.createLineBorder(NOIR));
         JLabel policeCaract = new JLabel("POLICE DE CARACTÈRES                                        ");
-        
+
         JPanel policeContent = new JPanel();
         policeContent.setSize(top.getWidth(), top.getHeight() - 30);
-        
+
         policeContent.setLayout(new GridLayout(3, 2, -45, 10));
         JLabel nom = new JLabel("Nom");
         JLabel taille = new JLabel("Taille");
@@ -177,18 +177,18 @@ public class TP3 extends WindowAdapter implements ActionListener {
         tempTaille = textTaille.getText();
         courier = new JComboBox(listeCaract);
         courier.addActionListener(this);
-        
+
         textTaille.addActionListener(this);
         couleurBox = new JComboBox(listeCouleur);
         couleurBox.addActionListener(this);
-        
+
         policeContent.add(nom);
         policeContent.add(courier);
         policeContent.add(taille);
         policeContent.add(textTaille);
         policeContent.add(couleur);
         policeContent.add(couleurBox);
-        
+
         normal = new JRadioButton("Normal     ");
         normal.addActionListener(this);
         gras = new JRadioButton("Gras     ");
@@ -196,23 +196,23 @@ public class TP3 extends WindowAdapter implements ActionListener {
         italique = new JRadioButton("Italique     ");
         italique.addActionListener(this);
         normal.setSelected(true);
-        
+
         courier.setSelectedIndex(1);
-        
+
         ButtonGroup groupeRadio = new ButtonGroup();
         groupeRadio.add(normal);
         groupeRadio.add(gras);
         groupeRadio.add(italique);
-        
+
         JPanel panelRadio = new JPanel(new FlowLayout());
         panelRadio.add(normal);
         panelRadio.add(gras);
         panelRadio.add(italique);
-        
+
         top.add(policeCaract);
         top.add(policeContent);
         top.add(panelRadio);
-        
+
         bot.setBounds(10, top.getHeight() + 20, 275, 290);
         bot.setBorder(BorderFactory.createLineBorder(NOIR));
 
@@ -223,16 +223,16 @@ public class TP3 extends WindowAdapter implements ActionListener {
         couleurs.setEditable(false);
         JPanel couleursPan = new JPanel();
         couleursPan.add(couleurs);
-        
+
         JPanel couleursContent = new JPanel();
         couleursContent.setSize(top.getWidth(), top.getHeight() - 30);
-        
+
         couleursContent.setLayout(new GridLayout(4, 2, 30, 5));
         JLabel fond = new JLabel("Fond");
         JLabel textSelectionne = new JLabel("Texte selectionné");
         JLabel selectionTexte = new JLabel("Selection texte");
         JLabel curseur = new JLabel("Curseur");
-        
+
         fondBox = new JComboBox(listeCouleur);
         fondBox.addActionListener(this);
         texteSelectionneBox = new JComboBox(listeCouleur);
@@ -241,7 +241,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         selectionTexteBox.addActionListener(this);
         curseurBox = new JComboBox(listeCouleur);
         curseurBox.addActionListener(this);
-        
+
         couleursContent.add(fond);
         couleursContent.add(fondBox);
         couleursContent.add(textSelectionne);
@@ -250,40 +250,40 @@ public class TP3 extends WindowAdapter implements ActionListener {
         couleursContent.add(selectionTexteBox);
         couleursContent.add(curseur);
         couleursContent.add(curseurBox);
-        
+
         JTextField autre = new JTextField("Autres                                                                     ");
         autre.setBackground(BLANC);
         autre.setEditable(false);
-        
+
         JPanel autresContent = new JPanel();
         autresContent.setSize(top.getWidth(), 200);
         autresContent.setLayout(new GridLayout(2, 2, 10, 5));
-        
+
         retourALaLigne = new JCheckBox("Retour à la ligne");
         retourALaLigne.setSelected(true);
         textArea.setWrapStyleWord(true);
-        
+
         retourALaLigne.addActionListener(this);
         JLabel tabulation = new JLabel(" Long. tabulation");
         valeurTabulation = new JTextField("3");
         tempFocus = valeurTabulation.getText();
         valeurTabulation.addActionListener(this);
-        
+
         autresContent.add(retourALaLigne);
         autresContent.add(new JLabel());
         autresContent.add(tabulation);
         autresContent.add(valeurTabulation);
-        
+
         bot.add(options);
         bot.add(couleursPan);
         bot.add(couleursContent);
         bot.add(autre);
         bot.add(autresContent);
-        
+
         fenetreConfig.add(top);
         fenetreConfig.add(bot);
-        fenetreConfig.setVisible(true);
-        
+        //fenetreConfig.setVisible(true);
+
         textArea.requestFocus();
     }
 
@@ -299,7 +299,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
         if (e.getSource() == nouveau) {
             creerNouveau();
         } else if (e.getSource() == charger) {
@@ -310,14 +310,14 @@ public class TP3 extends WindowAdapter implements ActionListener {
             fenetreConfig.setLocation(fenetre.getX() + fenetre.getWidth(), fenetre.getY());
             fenetreConfig.setVisible(true);
         } else if (e.getSource() == courier) {
-            
+
             textArea.setFont(trouverFont());
-            
+
         } else if (e.getSource() == textTaille) {
-            
+
             if (textTaille.getText().matches("[0-9]+")) {
                 if (Integer.parseInt(textTaille.getText()) >= 10 && Integer.parseInt(textTaille.getText()) <= 100) {
-                    
+
                     textArea.setFont(trouverFont());
                     tempTaille = textTaille.getText();
                 } else {
@@ -343,7 +343,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         } else if (e.getSource() == curseurBox) {
             textArea.setCaretColor(trouverCouleur(curseurBox));
         } else if (e.getSource() == valeurTabulation) {
-            
+
             if (valeurTabulation.getText().matches("[0-9]+")) {
                 if (Integer.parseInt(valeurTabulation.getText()) >= 2 && Integer.parseInt(valeurTabulation.getText()) <= 20) {
                     textArea.setTabSize(Integer.parseInt(valeurTabulation.getText()));
@@ -354,7 +354,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
                     valeurTabulation.setText(tempFocus);
                     valeurTabulation.requestFocus();
                 }
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
                         + "La tabulation ne peut pas contenir de caractères, elle doit contenir seulement des nombres", "Oups", JOptionPane.ERROR_MESSAGE);
@@ -362,13 +362,13 @@ public class TP3 extends WindowAdapter implements ActionListener {
                 valeurTabulation.requestFocus();
             }
         } else if (e.getSource() == normal) {
-            
+
             textArea.setFont(trouverFont());
         } else if (e.getSource() == gras) {
-            
+
             textArea.setFont(trouverFont());
         } else if (e.getSource() == italique) {
-            
+
             textArea.setFont(trouverFont());
         } else if (e.getSource() == retourALaLigne) {
             if (retourALaLigne.isSelected()) {
@@ -377,7 +377,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
                 textArea.setWrapStyleWord(false);
             }
         }
-        
+
     }
 
     /**
@@ -389,28 +389,53 @@ public class TP3 extends WindowAdapter implements ActionListener {
      * CONFIG_CHEMIN_FIC.
      */
     private void sauvegarderConfig() {
-        String sauvegarde = "s";
+       
         
-        sauvegarde = sauvegarde.concat(courier.getSelectedItem().toString());
-        textTaille.getText();
-        couleurBox.getSelectedItem().toString();
-        
-        fondBox.getSelectedItem().toString();
-        texteSelectionneBox.getSelectedItem();
-        selectionTexteBox.getSelectedItem();
-        curseurBox.getSelectedItem();
-        
-        valeurTabulation.getText();
-        
-        retourALaLigne.isSelected();
-        
-        System.out.println("s");
+
+      
         try {
-            UtilitairesTP3.sauvegarder(sauvegarde, "./config.txt ");
+            enregistrer( "./config.txt");
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
                     + " Enregistrement impossible de la configuration de l'éditeur.", "Oups", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public  void enregistrer( String cheminFic)
+            throws IOException {
+        File f;
+        PrintWriter out;
+
+        f = new File(cheminFic);
+
+        //ecriture de texte dans le fichier selectionne
+        out = new PrintWriter(new FileWriter(f));
+        out.println("Nom police :" + courier.getSelectedItem().toString());
+        out.println("Taille police :" + textTaille.getText());
+        out.println("Couleur police :" +couleurBox.getSelectedItem().toString());
+        if (normal.isSelected()) {
+            out.println("Type police :"+ "normal");
+        }else if (gras.isSelected()){
+            out.println("Type police :"+"gras");
+        }else if (italique.isSelected()){
+            out.println("Type police :"+"italique");
+        }
+        out.println("Couleur fond :" +fondBox.getSelectedItem().toString());
+        out.println("Couleur texte selec :" +texteSelectionneBox.getSelectedItem());
+        out.println("Couleur selection :" +selectionTexteBox.getSelectedItem().toString());
+        out.println("Couleur curseur :" +curseurBox.getSelectedItem().toString());
+        
+        
+      
+        if (retourALaLigne.isSelected()) {
+            out.println("retour ligne :" +"true");
+        }else{
+            out.println("retour ligne :" +"false");
+        }
+        
+        out.println("longueur tab :" +valeurTabulation.getText().toString());
+        out.close();
+
     }
 
     /**
@@ -436,41 +461,41 @@ public class TP3 extends WindowAdapter implements ActionListener {
         new TP3();
         //verifierConfig();
     }
-    
+
     private void creerNouveau() {
         textArea.setText(null);
         fichier.setText("Fichier : Nouveau");
         textArea.requestFocus();
-        
+
     }
-    
+
     private void ouvrirFichier() {
-        
+
         String reponse;
         int position = 0;
-        
+
         if (fichier.getText().equals("Fichier : Nouveau")) {
             reponse = UtilitairesTP3.selectionnerFichier(null);
         } else {
             reponse = UtilitairesTP3.selectionnerFichier(lienConfig);
         }
-        
+
         try {
             textArea.setText(UtilitairesTP3.lireFichier(reponse));
             position = reponse.lastIndexOf('\\');
             nomFichier = reponse.substring(position + 1);
             lienConfig = reponse;
             fichier.setText("Fichier : " + nomFichier);
-            
+
         } catch (IOException e) {
-            
+
             JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
                     + " Ouverture du fichier impossible.", "Oups", JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e) {
-            
+
         }
     }
-    
+
     private void sauvegarderFichier() {
         try {
             if (lienConfig.equals("")) {
@@ -482,15 +507,15 @@ public class TP3 extends WindowAdapter implements ActionListener {
             JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
                     + " Enregistrement du fichier impossible.", "Oups", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
-    
+
     private Color trouverCouleur(JComboBox Jcombo) {
         Color couleur = null;
-        
+
         if (Jcombo.getSelectedItem().toString().equals(listeCouleur[0])) {
             couleur = Color.BLACK;
-            
+
         } else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[1])) {
             couleur = Color.WHITE;
         } else if (Jcombo.getSelectedItem().toString().equals(listeCouleur[2])) {
@@ -514,11 +539,11 @@ public class TP3 extends WindowAdapter implements ActionListener {
         }
         return couleur;
     }
-    
+
     private Font trouverFont() {
         Font font = null;
         String police = null;
-        
+
         if (courier.getSelectedItem().equals("Arial")) {
             police = "Arial Unicode MS";
         } else if (courier.getSelectedItem().equals("Courier")) {
@@ -535,8 +560,8 @@ public class TP3 extends WindowAdapter implements ActionListener {
         } else if (italique.isSelected()) {
             font = new Font(police, Font.ITALIC, Integer.parseInt(textTaille.getText()));
         }
-        
+
         return font;
-        
+
     }
 }

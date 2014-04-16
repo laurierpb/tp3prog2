@@ -1,0 +1,10 @@
+Nom police :Courier
+Taille police :12
+Couleur police :Noir
+Type police :normal
+Couleur fond :Noir
+Couleur texte selec :Noir
+Couleur selection :Noir
+Couleur curseur :Noir
+retour ligne :true
+longueur tab :3
