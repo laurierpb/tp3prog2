@@ -1,10 +1,10 @@
-Nom police :Courier
+Nom police :Lucida Grande
 Taille police :12
-Couleur police :Noir
-Type police :normal
-Couleur fond :Noir
+Couleur police :Blanc
+Type police :gras
+Couleur fond :Rose
 Couleur texte selec :Noir
-Couleur selection :Noir
+Couleur selection :Jaune
 Couleur curseur :Noir
 retour ligne :true
 longueur tab :3

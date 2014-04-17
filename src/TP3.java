@@ -1,4 +1,3 @@
-package tp3;
 
 import java.awt.AWTEventMulticaster;
 import java.awt.BorderLayout;
@@ -93,6 +92,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
      */
     public TP3() {
         init();
+        chargerConfiguration();
     }
 
     /**
@@ -389,19 +389,15 @@ public class TP3 extends WindowAdapter implements ActionListener {
      * CONFIG_CHEMIN_FIC.
      */
     private void sauvegarderConfig() {
-       
-        
-
-      
         try {
-            enregistrer( "./config.txt");
+            enregistrer(CONFIG_CHEMIN_FIC);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
                     + " Enregistrement impossible de la configuration de l'éditeur.", "Oups", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public  void enregistrer( String cheminFic)
+    public void enregistrer(String cheminFic)
             throws IOException {
         File f;
         PrintWriter out;
@@ -412,28 +408,26 @@ public class TP3 extends WindowAdapter implements ActionListener {
         out = new PrintWriter(new FileWriter(f));
         out.println("Nom police :" + courier.getSelectedItem().toString());
         out.println("Taille police :" + textTaille.getText());
-        out.println("Couleur police :" +couleurBox.getSelectedItem().toString());
+        out.println("Couleur police :" + couleurBox.getSelectedItem().toString());
         if (normal.isSelected()) {
-            out.println("Type police :"+ "normal");
-        }else if (gras.isSelected()){
-            out.println("Type police :"+"gras");
-        }else if (italique.isSelected()){
-            out.println("Type police :"+"italique");
+            out.println("Type police :" + "normal");
+        } else if (gras.isSelected()) {
+            out.println("Type police :" + "gras");
+        } else if (italique.isSelected()) {
+            out.println("Type police :" + "italique");
         }
-        out.println("Couleur fond :" +fondBox.getSelectedItem().toString());
-        out.println("Couleur texte selec :" +texteSelectionneBox.getSelectedItem());
-        out.println("Couleur selection :" +selectionTexteBox.getSelectedItem().toString());
-        out.println("Couleur curseur :" +curseurBox.getSelectedItem().toString());
-        
-        
-      
+        out.println("Couleur fond :" + fondBox.getSelectedItem().toString());
+        out.println("Couleur texte selec :" + texteSelectionneBox.getSelectedItem());
+        out.println("Couleur selection :" + selectionTexteBox.getSelectedItem().toString());
+        out.println("Couleur curseur :" + curseurBox.getSelectedItem().toString());
+
         if (retourALaLigne.isSelected()) {
-            out.println("retour ligne :" +"true");
-        }else{
-            out.println("retour ligne :" +"false");
+            out.println("retour ligne :" + "true");
+        } else {
+            out.println("retour ligne :" + "false");
         }
-        
-        out.println("longueur tab :" +valeurTabulation.getText().toString());
+
+        out.println("longueur tab :" + valeurTabulation.getText().toString());
         out.close();
 
     }
@@ -466,7 +460,6 @@ public class TP3 extends WindowAdapter implements ActionListener {
         textArea.setText(null);
         fichier.setText("Fichier : Nouveau");
         textArea.requestFocus();
-
     }
 
     private void ouvrirFichier() {
@@ -562,6 +555,97 @@ public class TP3 extends WindowAdapter implements ActionListener {
         }
 
         return font;
+
+    }
+
+    private void chargerConfiguration() {
+        String config = null;
+        String temp = null;
+        try {
+            config = UtilitairesTP3.lireFichier(CONFIG_CHEMIN_FIC);
+        }catch(FileNotFoundException e){
+            chargerDefaut();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
+                    + " Chargement de la configuration de l'éditeur impossible.", "Oups", JOptionPane.ERROR_MESSAGE);
+        }
+        if (config != null) {
+            chargerCustom(config);
+
+        } 
+
+    }
+
+    private void chargerDefaut() {
+
+        courier.setSelectedItem("Courier");
+
+        textTaille.setText("12");
+
+        couleurBox.setSelectedItem("Noir");
+
+        normal.setSelected(true);
+
+        fondBox.setSelectedItem("Blanc");
+
+        texteSelectionneBox.setSelectedItem("Noir");
+
+        selectionTexteBox.setSelectedItem("Jaune");
+
+        curseurBox.setSelectedItem("Noir");
+
+        retourALaLigne.setSelected(true);
+
+        valeurTabulation.setText("3");
+
+        textArea.setFont(trouverFont());
+    }
+
+    private void chargerCustom(String config) {
+
+        String temp = null;
+
+        courier.setSelectedItem(config.substring(config.indexOf(":") + 1, config.indexOf("\n")));
+        config = config.substring(config.indexOf("\n") + 1);
+        textTaille.setText(config.substring(config.indexOf(":") + 1, config.indexOf("\n")));
+        config = config.substring(config.indexOf("\n") + 1);
+
+        couleurBox.setSelectedItem(config.substring(config.indexOf(":") + 1, config.indexOf("\n")));
+        config = config.substring(config.indexOf("\n") + 1);
+
+        temp = config.substring(config.indexOf(":") + 1, config.indexOf("\n"));
+        config = config.substring(config.indexOf("\n") + 1);
+        if (temp.equals("normal")) {
+            normal.setSelected(true);
+        } else if (temp.equals("gras")) {
+            gras.setSelected(true);
+        } else if (temp.equals("italique")) {
+            italique.setSelected(true);
+        }
+
+        fondBox.setSelectedItem(config.substring(config.indexOf(":") + 1, config.indexOf("\n")));
+        config = config.substring(config.indexOf("\n") + 1);
+
+        texteSelectionneBox.setSelectedItem(config.substring(config.indexOf(":") + 1, config.indexOf("\n")));
+        config = config.substring(config.indexOf("\n") + 1);
+
+        selectionTexteBox.setSelectedItem(config.substring(config.indexOf(":") + 1, config.indexOf("\n")));
+        config = config.substring(config.indexOf("\n") + 1);
+
+        curseurBox.setSelectedItem(config.substring(config.indexOf(":") + 1, config.indexOf("\n")));
+        config = config.substring(config.indexOf("\n") + 1);
+
+        temp = config.substring(config.indexOf(":") + 1, config.indexOf("\n"));
+        config = config.substring(config.indexOf("\n") + 1);
+        if (temp.equals("true")) {
+            retourALaLigne.setSelected(true);
+        } else {
+            retourALaLigne.setSelected(false);
+        }
+
+        valeurTabulation.setText(config.substring(config.indexOf(":") + 1, config.indexOf("\n")));
+
+        textArea.setFont(trouverFont());
 
     }
 }
