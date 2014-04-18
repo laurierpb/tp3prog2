@@ -1,7 +1,7 @@
-Nom police :Lucida Grande
-Taille police :12
+Nom police :Courier
+Taille police :25
 Couleur police :Blanc
-Type police :gras
+Type police :italique
 Couleur fond :Rose
 Couleur texte selec :Noir
 Couleur selection :Jaune

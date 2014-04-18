@@ -14,11 +14,17 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Toolkit;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.io.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
+/**
+ * Création une application graphique d’édition de texte avec l'ajout de
+ * certaines fonctionalités de modification de police et autre. L'ouverture et
+ * la sauvegarde de fichiers est comprise
+ *
+ * @author Laurier Paquette Berube
+ * @author Francis Fleurissaint FLEF19099105
+ * @version 21/01/2014
+ */
 public class TP3 extends WindowAdapter implements ActionListener {
 
     /**
@@ -397,7 +403,14 @@ public class TP3 extends WindowAdapter implements ActionListener {
         }
     }
 
-    public void enregistrer(String cheminFic)
+    /**
+     * Enregistre les options de polices choisies dans un fichier texte nommé
+     * config.txt, enregiste les options sous forme "Type":"selection".
+     *
+     * @param cheminFic le lien du fichier a enregistrer
+     * @throws IOEException s'il se produit une erreur lors de l'enregistrement
+     */
+    private void enregistrer(String cheminFic)
             throws IOException {
         File f;
         PrintWriter out;
@@ -456,12 +469,22 @@ public class TP3 extends WindowAdapter implements ActionListener {
         //verifierConfig();
     }
 
+    /**
+     * Reinitialise la zone de texte pour la création d'un nouveau fichier et
+     * redonne le focus a la zone de texte
+     *
+     */
     private void creerNouveau() {
         textArea.setText(null);
         fichier.setText("Fichier : Nouveau");
         textArea.requestFocus();
     }
 
+    /**
+     * Demande a l'utilisateur un fichier et l'ouvre dans la zone de texte
+     * affiche un message d'erreur si il y a une erreur lors de 
+     * l'ouverture du fichier 
+     */
     private void ouvrirFichier() {
 
         String reponse;
@@ -489,6 +512,14 @@ public class TP3 extends WindowAdapter implements ActionListener {
         }
     }
 
+    /**
+     * Demand a l'utilisateur ou il voudrait sauvegarder le texte dans la zone 
+     * de texte, si c'est un fichier qui a ete ouvert, on lui offre de choisir 
+     * a partir de l'emplacement du fichier
+     *
+     * afficher un message d'erreur si il y a un probleme lors de 
+     * l'enregistrement du fichier
+     */
     private void sauvegarderFichier() {
         try {
             if (lienConfig.equals("")) {
@@ -503,6 +534,11 @@ public class TP3 extends WindowAdapter implements ActionListener {
 
     }
 
+    /**
+     * Renvoie le bon type couleur selon la couleur choisie
+     *
+     * @param Jcombo element modifie qui envoie une couleur
+     */
     private Color trouverCouleur(JComboBox Jcombo) {
         Color couleur = null;
 
@@ -533,6 +569,11 @@ public class TP3 extends WindowAdapter implements ActionListener {
         return couleur;
     }
 
+    
+    /**
+     * Renvoie le bon type font selon la police choisie de l'element modifie
+     *
+     */
     private Font trouverFont() {
         Font font = null;
         String police = null;
@@ -546,6 +587,7 @@ public class TP3 extends WindowAdapter implements ActionListener {
         } else if (courier.getSelectedItem().equals("Time")) {
             police = "Times New Roman";
         }
+        
         if (normal.isSelected()) {
             font = new Font(police, Font.PLAIN, Integer.parseInt(textTaille.getText()));
         } else if (gras.isSelected()) {
@@ -558,12 +600,18 @@ public class TP3 extends WindowAdapter implements ActionListener {
 
     }
 
+       /**
+     * Charge les configuration par defaut si il n'y a pas de fichier de 
+     * configuration sinon applique les choix du fichier de configuration au 
+     * options
+     *
+     */
     private void chargerConfiguration() {
         String config = null;
-        String temp = null;
+       
         try {
             config = UtilitairesTP3.lireFichier(CONFIG_CHEMIN_FIC);
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             chargerDefaut();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Erreur  inattendue.\n"
@@ -572,35 +620,35 @@ public class TP3 extends WindowAdapter implements ActionListener {
         if (config != null) {
             chargerCustom(config);
 
-        } 
+        }
 
     }
 
+    /**
+     * Applique les options par defaut au panneau de configuration 
+     * 
+     */
     private void chargerDefaut() {
 
         courier.setSelectedItem("Courier");
-
         textTaille.setText("12");
-
         couleurBox.setSelectedItem("Noir");
-
         normal.setSelected(true);
-
         fondBox.setSelectedItem("Blanc");
-
         texteSelectionneBox.setSelectedItem("Noir");
-
         selectionTexteBox.setSelectedItem("Jaune");
-
         curseurBox.setSelectedItem("Noir");
-
         retourALaLigne.setSelected(true);
-
         valeurTabulation.setText("3");
-
         textArea.setFont(trouverFont());
     }
 
+       /**
+     * Charge les options lu dans le fichier texte dans le panneau de 
+     * configuration
+     *
+     * @param config texte du fichier contenant les options
+     */
     private void chargerCustom(String config) {
 
         String temp = null;
